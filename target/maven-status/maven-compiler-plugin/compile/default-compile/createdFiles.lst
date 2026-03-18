@@ -1,0 +1,15 @@
+com\park\espacio\entity\SpotLocation.class
+com\park\espacio\EspacioApplication.class
+com\park\espacio\entity\Spot$SpotBuilderImpl.class
+com\park\espacio\controller\Espacio.class
+com\park\espacio\entity\Spot.class
+com\park\espacio\repository\ParkingRepository.class
+com\park\espacio\entity\SpotDimension.class
+com\park\espacio\service\ParkingServiceImpl.class
+com\park\espacio\entity\Parking.class
+com\park\espacio\entity\Spot$SpotBuilder.class
+com\park\espacio\entity\SpotType.class
+com\park\espacio\service\ParkingService.class
+com\park\espacio\service\SpotServiceImpl.class
+com\park\espacio\repository\SpotRepository.class
+com\park\espacio\service\SpotService.class
