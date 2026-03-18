@@ -87,13 +87,15 @@ button {
                     <input th:field="${parking.spots[__${itemStat.index}__].pricePerHour}" disabled />
                 </td>
                 <td>
-                    <button type="button" th:onclick="'editSpot(' + ${itemStat.index} + ')'">Edit</button>
+                    <button type="button" th:onclick="'editSpot(' + ${itemStat.index} + ', this)'">Edit</button>
                     <button type="button" th:onclick="'removeSpot(' + ${itemStat.index} + ')'">Remove</button>
                 </td>
             </tr>
         </table>
         <span id="actions">
-            <button type="button" onclick="newSpot()">New Spot</button>&nbsp;
+            <form th:action="@{/parking/{id}(id=${parking.id})}" th:method="put" style="display:inline;">
+                <button type="submit">Add new spot</button>
+            </form>
             <button type="button" onclick="enableTextBoxes(this.form)">Update</button>&nbsp;
             <button type="button" onclick="cancel()">Cancel</button>
         </span>

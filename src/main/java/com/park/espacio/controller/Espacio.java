@@ -44,6 +44,17 @@ public class Espacio {
         return "redirect:/parkings";
     }
 
+    @PutMapping("/parking/{id}")
+    public String addNewSpotToParking(@PathVariable String id) {
+
+        Parking parking = parkingService.getById(Long.parseLong(id));
+
+        parking.spots.add(new Spot());
+        parkingService.update(parking);
+
+        return "redirect:/parking/" + id;
+    }
+
     @DeleteMapping("/parking/{id}")
     public String deleteParking(@PathVariable String id) {
 
@@ -56,15 +67,4 @@ public class Espacio {
         return "redirect:/parkings";
     }
 
-    @GetMapping("/all")
-    @ResponseBody
-    public List<Parking> getParkings() {
-        return parkingService.getParkings();
-    }
-
-    @GetMapping("/spots")
-    @ResponseBody
-    public List<Spot> getSpots() {
-        return spotService.getSpots();
-    }
 }
