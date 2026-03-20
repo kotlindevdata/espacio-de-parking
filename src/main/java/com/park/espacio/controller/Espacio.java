@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 public class Espacio {
 
@@ -38,8 +36,14 @@ public class Espacio {
         return "parking.html";
     }
 
-    @PostMapping("/parking/{id}")
-    public String updateParking(@PathVariable String id, @ModelAttribute Parking parking) {
+    @PostMapping(value = "/parking/{id}")
+    public String updateParking(@PathVariable String id, @ModelAttribute Parking parking,
+                                @RequestParam(value = "deleteSpot", defaultValue = "false") boolean deleteSpot) {
+        if(deleteSpot) {
+            parking.spots.removeIf(spot -> spot.getId() == 0 && spot.getCode() == null
+                                                && spot.getParking() == null && spot.getType() == null
+                                                && spot.getPricePerHour() == null && spot.getLocation() == null);
+        }
         parkingService.update(parking);
         return "redirect:/parkings";
     }

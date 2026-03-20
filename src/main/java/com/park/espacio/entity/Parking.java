@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class Parking {
                 cascade = CascadeType.ALL,
                 orphanRemoval = true)
     @JsonManagedReference
+    @ToString.Exclude
     public List<Spot> spots =  new ArrayList<>();
 
     public void addSpot(Spot spot){

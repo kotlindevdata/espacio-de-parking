@@ -2,10 +2,7 @@ package com.park.espacio.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @AllArgsConstructor
@@ -20,6 +17,7 @@ public class Spot {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
+    @ToString.Exclude
     private Parking parking;
 
     private SpotType type;
