@@ -12,6 +12,7 @@
 target/
 # Package Files #
 *.jar
+*.jar.ORIGINAL
 *.war
 *.nar
 *.ear
