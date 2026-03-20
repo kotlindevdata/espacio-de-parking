@@ -63,7 +63,7 @@ button {
         <input th:field="*{name}" /><br/>
         <input th:field="*{motosCapacity}" /><br/>
         <input th:field="*{carsCapacity}" /><br/>
-        <table id="tblSpots" class="inner">
+        <table th:field="*{spots}" id="tblSpots" class="inner">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -88,15 +88,13 @@ button {
                 </td>
                 <td>
                     <button type="button" th:onclick="'editSpot(' + ${itemStat.index} + ', this)'">Edit</button>
-                    <button type="button" th:onclick="'removeSpot(' + ${itemStat.index} + ')'">Remove</button>
+                    <button type="button" th:onclick="'removeSpot(' + ${itemStat.index} + ',this.form)'">Remove</button>
                 </td>
             </tr>
         </table>
         <span id="actions">
-            <form th:action="@{/parking/{id}(id=${parking.id})}" th:method="put" style="display:inline;">
-                <button type="submit">Add new spot</button>
-            </form>
-            <button type="button" onclick="enableTextBoxes(this.form)">Update</button>&nbsp;
+
+            <button type="button" onclick="enableTextBoxesAndUpdate(this.form)">Update</button>&nbsp;
             <button type="button" onclick="cancel()">Cancel</button>
         </span>
     </form>

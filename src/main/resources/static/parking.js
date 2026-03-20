@@ -13,9 +13,7 @@ function editSpot(spotId, button)
     }
 }
 
-
-
-function enableTextBoxes(form)
+function enableTextBoxesAndUpdate(form)
 {
     var table = document.getElementById('tblSpots');
     var rows = table.rows;
@@ -29,10 +27,11 @@ function enableTextBoxes(form)
     form.submit();
 }
 
-function removeSpot(spotId)
+function removeSpot(spotId,form)
 {
-  //  alert('Removing spot with index: ' + spotId);
+    form.action += '?deleteSpot=true';
     var table = document.getElementById('tblSpots');
     var row = table.rows.namedItem(spotId);
     table.deleteRow(row.rowIndex);
+    enableTextBoxesAndUpdate(form);
 }

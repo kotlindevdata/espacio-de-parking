@@ -95,6 +95,9 @@ button {
                     <form th:action="@{/parking/{id}(id=${parking.id})}" th:method="delete" style="display:inline;">
                         <button type="submit" th:text="Delete"></button>
                     </form>
+                    <form th:action="@{/parking/{id}(id=${parking.id})}" th:method="put" style="display:inline;">
+                        <button type="submit" >New spot</button>
+                    </form>
                 </span>
             </td>
         </tr>
