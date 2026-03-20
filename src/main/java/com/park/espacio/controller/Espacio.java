@@ -21,7 +21,7 @@ public class Espacio {
 
     @GetMapping("/")
     public String index() {
-        return "index.html";
+        return "redirect:/parkings";
     }
 
     @GetMapping("/parkings")
@@ -36,7 +36,7 @@ public class Espacio {
         return "parking.html";
     }
 
-    @PostMapping(value = "/parking/{id}")
+    @PostMapping("/parking/{id}")
     public String updateParking(@PathVariable String id, @ModelAttribute Parking parking,
                                 @RequestParam(value = "deleteSpot", defaultValue = "false") boolean deleteSpot) {
         if(deleteSpot) {
@@ -46,6 +46,15 @@ public class Espacio {
         }
         parkingService.update(parking);
         return "redirect:/parkings";
+    }
+
+    @PostMapping("/parking/new")
+    public String newParking() {
+
+        Parking parking = new Parking();
+        Parking newParking = parkingService.save(parking);
+
+        return "redirect:/parking/" + newParking.getId();
     }
 
     @PutMapping("/parking/{id}")

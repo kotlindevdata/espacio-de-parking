@@ -38,4 +38,9 @@ public class ParkingServiceImpl implements ParkingService {
     public void delete(Parking parking) {
         parkingRepository.delete(parking);
     }
+
+    @Override
+    public Parking save(Parking parking) {
+        return parkingRepository.save(parking);
+    }
 }

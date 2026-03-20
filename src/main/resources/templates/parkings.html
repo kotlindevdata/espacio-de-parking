@@ -50,10 +50,11 @@ button {
 </head>
 <body>
     <h1>Espacio app - Parkings</h1>
-    <menu>
-        <li><a th:href="@{/}">Home</a></li>
-        <li><a th:href="@{/parkings}" >Parkings</a></li>
-    </menu>
+
+    <hr/>
+    <form th:action="@{/parking/new}" th:method="post" style="width: 400px;">
+        <button type="submit" >New Parking</button>
+    </form>
     <hr/>
     <table class="outer">
         <thead>

@@ -13,4 +13,6 @@ public interface ParkingService {
     void update(Parking parking);
 
     void delete(Parking parking);
+
+    Parking save(Parking parking);
 }

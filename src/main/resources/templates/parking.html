@@ -52,10 +52,7 @@ button {
 </head>
 <body>
     <h1>Espacio app - Edit Parking</h1>
-    <menu>
-        <li><a th:href="@{/}">Home</a></li>
-        <li><a th:href="@{/parkings}" >Parkings</a></li>
-    </menu>
+
     <hr/>
 
     <form th:action="@{/parking/{id}(id=${parking.id})}" method="post" th:object="${parking}">
