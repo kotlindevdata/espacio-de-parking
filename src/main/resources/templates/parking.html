@@ -3,67 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Espacio - Edit parking</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{/parking.js}" defer></script>
+    <link th:href="@{/main.css}" rel="stylesheet" >
 
-<!--
-    <link th:href="@{static/main.css}" rel="stylesheet" >
--->
-    <style>
-        body {
-    background-color: #c5f2f4;
-
-}
-menu
-   display: flex;
-   list-style: none;
-   padding: 0;
-   width: 400px;
-}
-
-li {
-  flex-grow: 1;
-}
-
-button {
-  width: 100%;
-}
-        .outer {
-            border-style: solid;
-            border-width: 2px;
-            border-color: blue;
-        }
-        .inner {
-           border-style: dotted;
-            border-width: 1px;
-            border-color: black;
-
-        }
-        .outer td {
-            background-color: lightgreen;
-        }
-        .inner td {
-            background-color: lightyellow;
-        }
-        #actions{
-
-
-        }
-        .noedit {
-            cursor: not-allowed;
-        }
-    </style>
 </head>
-<body>
+<body class="container">
     <h1>Espacio app - Edit Parking</h1>
 
     <hr/>
 
-    <form th:action="@{/parking/{id}(id=${parking.id})}" method="post" th:object="${parking}">
-        <input th:field="*{id}" readonly disabled class="noedit"/><br/>
-        <input th:field="*{name}" /><br/>
-        <input th:field="*{motosCapacity}" /><br/>
-        <input th:field="*{carsCapacity}" /><br/>
-        <table th:field="*{spots}" id="tblSpots" class="inner">
+    <form class="form-group" th:action="@{/parking/{id}(id=${parking.id})}" method="post" th:object="${parking}">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <fieldset>
+                    <legend>Details</legend>
+                    <label>Id:   </label>
+                    <input th:field="*{id}" readonly disabled/><br/>
+                    <label>Name: </label>
+                    <input th:field="*{name}" /><br/>
+                </fieldset>
+            </div>
+            <div class="col-md-6">
+                <fieldset>
+                    <legend>Capacity</legend>
+                    <label>Motors: </label>
+                    <input th:field="*{motosCapacity}" /><br/>
+                    <label>Cars:   </label>
+                    <input th:field="*{carsCapacity}" /><br/>
+                </fieldset>
+            </div>
+        </div>
+
+        <br/>
+        <h2>Spots</h2>
+        <hr/>
+        <table th:field="*{spots}" id="tblSpots" class="table-sm table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -76,16 +55,16 @@ button {
             </thead>
             <tr th:each="spot, itemStat : ${parking.spots}" th:id="${itemStat.index}" >
                 <td>
-                    <input th:field="${parking.spots[__${itemStat.index}__].id}" class="noedit" readonly disabled />
+                    <input th:field="${parking.spots[__${itemStat.index}__].id}" class="form-control" readonly disabled />
                 </td>
                 <td>
-                    <select  th:field="${parking.spots[__${itemStat.index}__].type}" disabled>
+                    <select class="form-control" th:field="${parking.spots[__${itemStat.index}__].type}" disabled>
                         <option th:value="MOTO" th:text="MOTO"></option>
                         <option th:value="CAR" th:text="CAR"></option>
                     </select>
                 </td>
                 <td>
-                   <select th:field="${parking.spots[__${itemStat.index}__].location}" disabled>
+                   <select class="form-control" th:field="${parking.spots[__${itemStat.index}__].location}" disabled>
                         <option th:value="NORTH" th:text="NORTH"></option>
                         <option th:value="EAST" th:text="EAST"></option>
                         <option th:value="SOUTH" th:text="SOUTH"></option>
@@ -97,24 +76,31 @@ button {
                     </select>
                 </td>
                 <td>
-                    <input type="number" th:field="${parking.spots[__${itemStat.index}__].dimension.width}" disabled />
+                    <input type="number" class="form-control"
+                           th:field="${parking.spots[__${itemStat.index}__].dimension.width}" disabled />
                 </td>
                 <td>
-                    <input type="number" th:field="${parking.spots[__${itemStat.index}__].dimension.height}" disabled />
+                    <input type="number" class="form-control"
+                           th:field="${parking.spots[__${itemStat.index}__].dimension.height}" disabled />
                 </td>
                 <td>
-                    <input th:field="${parking.spots[__${itemStat.index}__].pricePerHour}" disabled />
+                    <input type="number" class="form-control"
+                           th:field="${parking.spots[__${itemStat.index}__].pricePerHour}" disabled />
                 </td>
-                <td>
-                    <button type="button" th:onclick="'editSpot(' + ${itemStat.index} + ', this)'">Edit</button>
-                    <button type="button" th:onclick="'removeSpot(' + ${itemStat.index} + ',this.form)'">Remove</button>
+                <td class="col-md-2">
+                    <button type="button" class="btn btn-secondary"
+                            th:onclick="'editSpot(' + ${itemStat.index} + ', this)'">Edit</button>
+                    <button type="button" class="btn btn-danger"
+                            th:onclick="'removeSpot(' + ${itemStat.index} + ',this.form)'">Remove</button>
+                    <div class="spinner spinner-grow spinner-grow-sm d-none" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </td>
             </tr>
         </table>
         <span id="actions">
-
-            <button type="button" onclick="enableTextBoxesAndUpdate(this.form)">Update</button>&nbsp;
-            <button type="button" onclick="cancel()">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="enableTextBoxesAndUpdate(this.form)">Update</button>&nbsp;
+            <button type="button" class="btn btn-primary" onclick="cancel()">Cancel</button>
         </span>
     </form>
 </body>
