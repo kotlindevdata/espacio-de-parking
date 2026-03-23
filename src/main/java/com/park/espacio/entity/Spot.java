@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +23,8 @@ public class Spot {
     private Parking parking;
 
     private SpotType type;
-    //private SpotDimension dimension;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private SpotDimension dimension;
     private String code;
     private Double pricePerHour;
     private SpotLocation location;
