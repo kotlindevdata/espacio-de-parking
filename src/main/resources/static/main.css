@@ -1,18 +1,6 @@
 body {
-    background-color: lightgreen;
-
-}
-menu
-   display: flex;
-   list-style: none;
-   padding: 0;
-   width: 400px;
+    font-family: Consolas, monospace;
 }
 
-li {
-  flex-grow: 1;
-}
 
-button {
-  width: 100%;
-}
+
