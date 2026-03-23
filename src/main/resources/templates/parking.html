@@ -48,6 +48,9 @@ button {
 
 
         }
+        .noedit {
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -56,7 +59,7 @@ button {
     <hr/>
 
     <form th:action="@{/parking/{id}(id=${parking.id})}" method="post" th:object="${parking}">
-        <input th:field="*{id}" readonly /><br/>
+        <input th:field="*{id}" readonly disabled class="noedit"/><br/>
         <input th:field="*{name}" /><br/>
         <input th:field="*{motosCapacity}" /><br/>
         <input th:field="*{carsCapacity}" /><br/>
@@ -66,19 +69,38 @@ button {
                     <th>Id</th>
                     <th>Type</th>
                     <th>Location</th>
+                    <th colspan="2">Dimensions (width, height)</th>
                     <th>Price</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tr th:each="spot, itemStat : ${parking.spots}" th:id="${itemStat.index}" >
                 <td>
-                    <input th:field="${parking.spots[__${itemStat.index}__].id}" disabled />
+                    <input th:field="${parking.spots[__${itemStat.index}__].id}" class="noedit" readonly disabled />
                 </td>
                 <td>
-                    <input th:field="${parking.spots[__${itemStat.index}__].type}" disabled/>
+                    <select  th:field="${parking.spots[__${itemStat.index}__].type}" disabled>
+                        <option th:value="MOTO" th:text="MOTO"></option>
+                        <option th:value="CAR" th:text="CAR"></option>
+                    </select>
                 </td>
                 <td>
-                   <input th:field="${parking.spots[__${itemStat.index}__].location}" disabled />
+                   <select th:field="${parking.spots[__${itemStat.index}__].location}" disabled>
+                        <option th:value="NORTH" th:text="NORTH"></option>
+                        <option th:value="EAST" th:text="EAST"></option>
+                        <option th:value="SOUTH" th:text="SOUTH"></option>
+                        <option th:value="WEST" th:text="WEST"></option>
+                    <option th:value="NORTH_EAST" th:text="NORTH_EAST"></option>
+                    <option th:value="NORTH_WEST" th:text="NORTH_WEST"></option>
+                    <option th:value="SOUTH_EAST" th:text="SOUTH_EAST"></option>
+                    <option th:value="SOUTH_WEST" th:text="SOUTH_WEST"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" th:field="${parking.spots[__${itemStat.index}__].dimension.width}" disabled />
+                </td>
+                <td>
+                    <input type="number" th:field="${parking.spots[__${itemStat.index}__].dimension.height}" disabled />
                 </td>
                 <td>
                     <input th:field="${parking.spots[__${itemStat.index}__].pricePerHour}" disabled />
