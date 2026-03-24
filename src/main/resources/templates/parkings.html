@@ -5,19 +5,26 @@
     <title>Espacio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
     <link th:href="@{/main.css}" rel="stylesheet" >
 
 </head>
 <body class="container">
-    <h1>Espacio app - Parkings</h1>
+    <h2>Espacio app</h2>
 
-    <hr/>
-    <form th:action="@{/parking/new}" th:method="post" style="width: 400px;">
-        <button type="submit" class="btn btn-success" >New Parking</button>
-    </form>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/">Parkings</a></li>
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-end">
+        <form th:action="@{/parking/new}" th:method="post" class="form-group">
+            <button type="submit" class="btn btn-success" >New Parking</button>
+        </form>
+    </div>
     <hr/>
     <table class="table table-hover">
         <thead>
@@ -56,12 +63,31 @@
             <td>
                 <span id="actions">
                     <button th:text="Edit" class="btn btn-secondary" th:onclick="|editParking('${parking.id}')|"></button>&nbsp;
-                    <form th:action="@{/parking/{id}(id=${parking.id})}" th:method="delete" style="display:inline;">
-                        <button type="submit" class="btn btn-danger" th:text="Delete"></button>
-                    </form>
                     <form th:action="@{/parking/{id}(id=${parking.id})}" th:method="put" style="display:inline;">
                         <button class="btn btn-primary" type="submit" >New spot</button>
                     </form>
+                    <button class="btn btn-danger" th:attr="onclick=|showPopup(${parking.id})|">Delete</button>
+                    <div th:attr="id=${parking.id}" class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Confirm</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this parking?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                     <form th:action="@{/parking/{id}(id=${parking.id})}" th:method="delete" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger" th:text="Yes"></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </span>
             </td>
         </tr>
@@ -73,12 +99,9 @@
        // alert('Editing parking with id: ' + id);
         window.location.href= '/parking/' + id;
     }
-    function deleteParking(id)
+    function showPopup(id)
     {
-        if (window.confirm("Are you sure?")) { //todo: turn this into a bootstrap modal?
-            //proceed deleting
-            //alert('Deleting parking with id: ' + id);
-        }
+        $('#'+id).modal('show');
     }
 </script>
 </html>

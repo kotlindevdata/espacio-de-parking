@@ -13,9 +13,14 @@
 
 </head>
 <body class="container">
-    <h1>Espacio app - Edit Parking</h1>
+    <h2>Espacio app</h2>
 
-    <hr/>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Parkings</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Parking</li>
+        </ol>
+    </nav>
 
     <form class="form-group" th:action="@{/parking/{id}(id=${parking.id})}" method="post" th:object="${parking}">
         <div class="form-group row">
@@ -40,7 +45,7 @@
         </div>
 
         <br/>
-        <h2>Spots</h2>
+        <h4>Spots</h4>
         <hr/>
         <table th:field="*{spots}" id="tblSpots" class="table-sm table-bordered table-hover">
             <thead>
